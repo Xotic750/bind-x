@@ -1,6 +1,8 @@
 <a name="module_bind-x"></a>
 
 ## bind-x
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Xotic750/bind-x.svg)](https://greenkeeper.io/)
 <a href="https://travis-ci.org/Xotic750/bind-x"
 title="Travis status">
 <img
