@@ -73,7 +73,14 @@ describe('#bind()', function () {
 
     testSubject.func = bind(fn, undefined, 1, 2, 3);
     testSubject.func(1, 2, 3);
-    expect(a).toEqual([1, 2, 3, 1, 2, 3]);
+    expect(a).toEqual([
+      1,
+      2,
+      3,
+      1,
+      2,
+      3
+    ]);
     var fn1 = function _fn1() {
       // eslint-disable-next-line no-invalid-this
       return this;
@@ -85,14 +92,25 @@ describe('#bind()', function () {
   it('binds a context properly', function () {
     testSubject.func = bind(func, actual);
     testSubject.func(1, 2, 3);
-    expect(actual).toEqual([1, 2, 3]);
+    expect(actual).toEqual([
+      1,
+      2,
+      3
+    ]);
     expect(testSubject.a).toEqual([]);
   });
 
   it('binds a context and supplies bound arguments', function () {
     testSubject.func = bind(func, actual, 1, 2, 3);
     testSubject.func(4, 5, 6);
-    expect(actual).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(actual).toEqual([
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]);
     expect(testSubject.a).toEqual([]);
   });
 
@@ -128,7 +146,14 @@ describe('#bind()', function () {
     };
 
     expect(context).toBe(fn1.call());
-    expect(actual).toEqual([1, 2, 3, 1, 2, 3]);
+    expect(actual).toEqual([
+      1,
+      2,
+      3,
+      1,
+      2,
+      3
+    ]);
   });
 
   it('returns properly while binding a context properly', function () {
@@ -175,7 +200,11 @@ describe('#bind()', function () {
   });
 
   it('returns the return value of the bound function when called as a constructor', function () {
-    var oracle = [1, 2, 3];
+    var oracle = [
+      1,
+      2,
+      3
+    ];
     var fn = function _fn() {
       // eslint-disable-next-line no-invalid-this
       expect(this).not.toBe(oracle);
@@ -196,12 +225,25 @@ describe('#bind()', function () {
 
     var Subject = bind(fn, null);
 
-    var primitives = ['asdf', null, true, 1];
+    var primitives = [
+      'asdf',
+      null,
+      true,
+      1
+    ];
     for (var i = 0; i < primitives.length; ++i) {
       expect(new Subject(primitives[i])).not.toBe(primitives[i]);
     }
 
-    var objects = [[1, 2, 3], {}, function () {}];
+    var objects = [
+      [
+        1,
+        2,
+        3
+      ],
+      {},
+      function () {}
+    ];
     for (var j = 0; j < objects.length; ++j) {
       expect(new Subject(objects[j])).toBe(objects[j]);
     }

@@ -1,32 +1,6 @@
 /**
- * @file
- * <a href="https://travis-ci.org/Xotic750/bind-x"
- * title="Travis status">
- * <img
- * src="https://travis-ci.org/Xotic750/bind-x.svg?branch=master"
- * alt="Travis status" height="18">
- * </a>
- * <a href="https://david-dm.org/Xotic750/bind-x"
- * title="Dependency status">
- * <img src="https://david-dm.org/Xotic750/bind-x.svg"
- * alt="Dependency status" height="18"/>
- * </a>
- * <a
- * href="https://david-dm.org/Xotic750/bind-x#info=devDependencies"
- * title="devDependency status">
- * <img src="https://david-dm.org/Xotic750/bind-x/dev-status.svg"
- * alt="devDependency status" height="18"/>
- * </a>
- * <a href="https://badge.fury.io/js/bind-x" title="npm version">
- * <img src="https://badge.fury.io/js/bind-x.svg"
- * alt="npm version" height="18">
- * </a>
- *
- * Bind module.
- *
- * Requires ES3 or above.
- *
- * @version 1.0.0
+ * @file Creates a new function with a bound sequence of arguments.
+ * @version 2.0.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -79,7 +53,8 @@ if (nativeBind) {
   }
 }
 
-if (!bind) {
+if (Boolean(bind) === false) {
+  var getFunctionName = require('get-function-name-x');
   var Empty = function _Empty() {};
   bind = function _bind(target, thisArg) {
     assertIsFunction(target);
@@ -108,8 +83,9 @@ if (!bind) {
       boundArgs += '$' + index + (index < lastIndex ? ',' : '');
     }
 
-  // eslint-disable-next-line no-new-func
-    bound = Function('binder', 'return function _bound(' + boundArgs + '){ return binder.apply(this,arguments); }')(binder);
+    var name = getFunctionName(target);
+    // eslint-disable-next-line no-new-func
+    bound = Function('binder', 'slice', 'return function ' + name + '(' + boundArgs + '){ return binder.apply(this,slice(arguments)); }')(binder, slice);
     if (target.prototype) {
       Empty.prototype = target.prototype;
       bound.prototype = new Empty();
@@ -125,14 +101,14 @@ if (!bind) {
  * keyword set to the provided value, with a given sequence of arguments
  * preceding any provided when the new function is called.
  *
- * @param {Function} target The target function.
- * @param {*} thisArg The value to be passed as the this parameter to the target
+ * @param {Function} target - The target function.
+ * @param {*} thisArg - The value to be passed as the this parameter to the target
  *  function when the bound function is called. The value is ignored if the
  *  bound function is constructed using the new operator.
- * @param {*} [args] Arguments to prepend to arguments provided to the bouund
+ * @param {*} [args] - Arguments to prepend to arguments provided to the bouund
  *  function when invoking the target function.
  * @throws {TypeError} If target is not a function.
- * @return {Function} The bound function.
+ * @returns {Function} The bound function.
  * @example
  * var bind = require('bind-x');
  *
