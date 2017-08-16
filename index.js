@@ -1,6 +1,6 @@
 /**
  * @file Creates a new function with a bound sequence of arguments.
- * @version 2.0.0
+ * @version 2.0.1
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -80,7 +80,7 @@ if (Boolean(bind) === false) {
     var lastIndex = boundLength - 1;
     var boundArgs = '';
     for (var index = 0; index < boundLength; index += 1) {
-      boundArgs += '$' + index + (index < lastIndex ? ',' : '');
+      boundArgs += '$_' + index + '_$' + (index < lastIndex ? ',' : '');
     }
 
     var name = getFunctionName(target);
