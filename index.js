@@ -1,6 +1,6 @@
 /**
  * @file Creates a new function with a bound sequence of arguments.
- * @version 2.0.1
+ * @version 3.0.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -11,65 +11,93 @@
 
 var assertIsFunction = require('assert-is-function-x');
 var slice = require('array-slice-x');
-var isPrimitive = require('is-primitive');
+var nativeBind = typeof Function.prototype.bind === 'function' && Function.prototype.bind;
 
-var concat = function _concat(a, b) {
-  var aLength = a.length;
-  var bLength = b.length;
-  var result = slice(a);
-  result.length += bLength;
-  for (var index = 0; index < bLength; index += 1) {
-    result[aLength + index] = b[index];
-  }
-
-  return result;
-};
-
-var bind;
-var nativeBind = Function.prototype.bind;
+var isWorking;
 if (nativeBind) {
-  bind = function _bind(target, thisArg) {
-    assertIsFunction(target);
-    var args = concat([thisArg], slice(arguments, 2));
-    return nativeBind.apply(target, args);
+  var attempt = require('attempt-x');
+  var gra;
+  var context;
+  // eslint-disable-next-line no-unused-vars
+  var fn = function (arg1, arg2) {
+    // eslint-disable-next-line no-invalid-this
+    context = this;
+    gra = arg1;
+    return arguments;
   };
 
-  try {
-    var a, context;
-    var fn = function _fn(arg) {
-      // eslint-disable-next-line no-invalid-this
-      context = this;
-      a = arg;
+  var testThis = [];
+  var res = attempt.call(fn, nativeBind, testThis, 1);
+  isWorking = res.threw === false && typeof res.value === 'function';
+  if (isWorking) {
+    res = attempt(res.value, 2, 3);
+    isWorking = res.threw === false && gra === 1 && context === testThis && res.value.length === 3;
+  }
+
+  if (isWorking) {
+    var oracle = [
+      1,
+      2,
+      3
+    ];
+
+    var Ctr = function () {
+      isWorking = this !== oracle;
+      return oracle;
     };
 
-    var testThis = [];
-    var test = bind(Function.prototype.call, fn, testThis);
-    test(1);
-    if (a !== 1 || context !== testThis) {
-      throw new Error('Incorrect');
+    res = attempt.call(Ctr, nativeBind, null);
+    isWorking = res.threw === false && typeof res.value === 'function';
+    if (isWorking) {
+      res = attempt(function () {
+        // eslint-disable-next-line new-cap
+        return new res.value();
+      });
+
+      if (isWorking) {
+        isWorking = res.threw === false && res.value === oracle;
+      }
     }
-  } catch (e) {
-    bind = null;
   }
 }
 
-if (Boolean(bind) === false) {
-  var getFunctionName = require('get-function-name-x');
+var $bind;
+if (isWorking) {
+  // eslint-disable-next-line no-unused-vars
+  $bind = function bind(target, thisArg) {
+    return nativeBind.apply(assertIsFunction(target), slice(arguments, 1));
+  };
+} else {
+  var concat = function _concat(a, b) {
+    var aLength = a.length;
+    var bLength = b.length;
+    var result = slice(a);
+    result.length += bLength;
+    for (var index = 0; index < bLength; index += 1) {
+      result[aLength + index] = b[index];
+    }
+
+    return result;
+  };
+
+  var isPrimitive = require('is-primitive');
   var Empty = function _Empty() {};
-  bind = function _bind(target, thisArg) {
+
+  $bind = function _bind(target, thisArg) {
     assertIsFunction(target);
     var args = slice(arguments, 2);
     var bound;
+
     var binder = function _binder() {
       // eslint-disable-next-line no-invalid-this
       if (this instanceof bound) {
         // eslint-disable-next-line no-invalid-this
-        var result = target.apply(this, concat(args, slice(arguments)));
+        var result = target.apply(this, concat(args, arguments));
         // eslint-disable-next-line no-invalid-this
         return isPrimitive(result) ? this : result;
       }
 
-      return target.apply(thisArg, concat(args, slice(arguments)));
+      return target.apply(thisArg, concat(args, arguments));
     };
 
     var boundLength = target.length - args.length;
@@ -83,9 +111,8 @@ if (Boolean(bind) === false) {
       boundArgs += '$_' + index + '_$' + (index < lastIndex ? ',' : '');
     }
 
-    var name = getFunctionName(target);
     // eslint-disable-next-line no-new-func
-    bound = Function('binder', 'slice', 'return function ' + name + '(' + boundArgs + '){ return binder.apply(this,slice(arguments)); }')(binder, slice);
+    bound = Function('binder', 'slice', 'return function (' + boundArgs + '){ return binder.apply(this,slice(arguments)); }')(binder, slice);
     if (target.prototype) {
       Empty.prototype = target.prototype;
       bound.prototype = new Empty();
@@ -131,4 +158,4 @@ if (Boolean(bind) === false) {
  * boundGetX(); // 81
  *
  */
-module.exports = bind;
+module.exports = $bind;
