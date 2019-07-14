@@ -7,49 +7,49 @@
  * @module bind-x
  */
 
-'use strict';
+const assertIsFunction = require('assert-is-function-x');
+const slice = require('array-slice-x');
 
-var assertIsFunction = require('assert-is-function-x');
-var slice = require('array-slice-x');
-var nativeBind = typeof Function.prototype.bind === 'function' && Function.prototype.bind;
+const nativeBind = typeof Function.prototype.bind === 'function' && Function.prototype.bind;
 
-var isWorking;
+let isWorking;
+
 if (nativeBind) {
-  var attempt = require('attempt-x');
-  var gra;
-  var context;
+  const attempt = require('attempt-x');
+  let gra;
+  let context;
   // eslint-disable-next-line no-unused-vars
-  var fn = function (arg1, arg2) {
+  const fn = function(arg1, arg2) {
     // eslint-disable-next-line no-invalid-this
     context = this;
     gra = arg1;
+
     return arguments;
   };
 
-  var testThis = [];
-  var res = attempt.call(fn, nativeBind, testThis, 1);
+  const testThis = [];
+  let res = attempt.call(fn, nativeBind, testThis, 1);
   isWorking = res.threw === false && typeof res.value === 'function';
+
   if (isWorking) {
     res = attempt(res.value, 2, 3);
     isWorking = res.threw === false && gra === 1 && context === testThis && res.value.length === 3;
   }
 
   if (isWorking) {
-    var oracle = [
-      1,
-      2,
-      3
-    ];
+    const oracle = [1, 2, 3];
 
-    var Ctr = function () {
+    const Ctr = function() {
       isWorking = this !== oracle;
+
       return oracle;
     };
 
     res = attempt.call(Ctr, nativeBind, null);
     isWorking = res.threw === false && typeof res.value === 'function';
+
     if (isWorking) {
-      res = attempt(function () {
+      res = attempt(function() {
         // eslint-disable-next-line new-cap
         return new res.value();
       });
@@ -61,38 +61,40 @@ if (nativeBind) {
   }
 }
 
-var $bind;
+let $bind;
+
 if (isWorking) {
   // eslint-disable-next-line no-unused-vars
   $bind = function bind(target, thisArg) {
     return nativeBind.apply(assertIsFunction(target), slice(arguments, 1));
   };
 } else {
-  var concat = function _concat(a, b) {
-    var aLength = a.length;
-    var bLength = b.length;
-    var result = slice(a);
+  const concat = function _concat(a, b) {
+    const aLength = a.length;
+    const bLength = b.length;
+    const result = slice(a);
     result.length += bLength;
-    for (var index = 0; index < bLength; index += 1) {
+    for (let index = 0; index < bLength; index += 1) {
       result[aLength + index] = b[index];
     }
 
     return result;
   };
 
-  var isPrimitive = require('is-primitive');
-  var Empty = function _Empty() {};
+  const isPrimitive = require('is-primitive');
+  const Empty = function _Empty() {};
 
   $bind = function _bind(target, thisArg) {
     assertIsFunction(target);
-    var args = slice(arguments, 2);
-    var bound;
+    const args = slice(arguments, 2);
+    let bound;
 
-    var binder = function _binder() {
+    const binder = function _binder() {
       // eslint-disable-next-line no-invalid-this
       if (this instanceof bound) {
         // eslint-disable-next-line no-invalid-this
-        var result = target.apply(this, concat(args, arguments));
+        const result = target.apply(this, concat(args, arguments));
+
         // eslint-disable-next-line no-invalid-this
         return isPrimitive(result) ? this : result;
       }
@@ -100,19 +102,24 @@ if (isWorking) {
       return target.apply(thisArg, concat(args, arguments));
     };
 
-    var boundLength = target.length - args.length;
+    let boundLength = target.length - args.length;
+
     if (boundLength < 0) {
       boundLength = 0;
     }
 
-    var lastIndex = boundLength - 1;
-    var boundArgs = '';
-    for (var index = 0; index < boundLength; index += 1) {
-      boundArgs += '$_' + index + '_$' + (index < lastIndex ? ',' : '');
+    const lastIndex = boundLength - 1;
+    let boundArgs = '';
+    for (let index = 0; index < boundLength; index += 1) {
+      boundArgs += `$_${index}_$${index < lastIndex ? ',' : ''}`;
     }
 
     // eslint-disable-next-line no-new-func
-    bound = Function('binder', 'slice', 'return function (' + boundArgs + '){ return binder.apply(this,slice(arguments)); }')(binder, slice);
+    bound = Function('binder', 'slice', `return function (${boundArgs}){ return binder.apply(this,slice(arguments)); }`)(
+      binder,
+      slice,
+    );
+
     if (target.prototype) {
       Empty.prototype = target.prototype;
       bound.prototype = new Empty();
