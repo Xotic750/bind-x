@@ -7,8 +7,9 @@
  * @module bind-x
  */
 
-const assertIsFunction = require('assert-is-function-x');
-const slice = require('array-slice-x');
+import assertIsFunction from 'assert-is-function-x';
+
+import slice from 'array-slice-x';
 
 const nativeBind = typeof Function.prototype.bind === 'function' && Function.prototype.bind;
 
@@ -165,4 +166,4 @@ if (isWorking) {
  * boundGetX(); // 81
  *
  */
-module.exports = $bind;
+export default $bind;

@@ -53,6 +53,7 @@ describe('#bind()', function() {
   });
 
   it('binds properly without a context', function() {
+    expect.assertions(1);
     let context;
     const fn = function _fn() {
       // eslint-disable-next-line no-invalid-this
@@ -70,6 +71,7 @@ describe('#bind()', function() {
   });
 
   it('binds properly without a context, and still supplies bound arguments', function() {
+    expect.assertions(1);
     let a;
     let context;
     const fn = function _fn() {
@@ -90,6 +92,7 @@ describe('#bind()', function() {
   });
 
   it('binds a context properly', function() {
+    expect.assertions(1);
     testSubject.func = bind(func, actual);
     testSubject.func(1, 2, 3);
     expect(actual).toStrictEqual([1, 2, 3]);
@@ -97,6 +100,7 @@ describe('#bind()', function() {
   });
 
   it('binds a context and supplies bound arguments', function() {
+    expect.assertions(1);
     testSubject.func = bind(func, actual, 1, 2, 3);
     testSubject.func(4, 5, 6);
     expect(actual).toStrictEqual([1, 2, 3, 4, 5, 6]);
@@ -104,6 +108,7 @@ describe('#bind()', function() {
   });
 
   it('returns properly without binding a context', function() {
+    expect.assertions(1);
     const fn = function _fn() {
       // eslint-disable-next-line no-invalid-this
       return this;
@@ -120,6 +125,7 @@ describe('#bind()', function() {
   });
 
   it('returns properly without binding a context, and still supplies bound arguments', function() {
+    expect.assertions(1);
     let context;
     const fn = function _fn() {
       // eslint-disable-next-line no-invalid-this
@@ -140,6 +146,7 @@ describe('#bind()', function() {
   });
 
   it('returns properly while binding a context properly', function() {
+    expect.assertions(1);
     let ret;
     testSubject.func = bind(func, actual);
     ret = testSubject.func(1, 2, 3);
@@ -148,6 +155,7 @@ describe('#bind()', function() {
   });
 
   it('returns properly while binding a context and supplies bound arguments', function() {
+    expect.assertions(1);
     let ret;
     testSubject.func = bind(func, actual, 1, 2, 3);
     ret = testSubject.func(4, 5, 6);
@@ -156,6 +164,7 @@ describe('#bind()', function() {
   });
 
   it("has the new instance's context as a constructor", function() {
+    expect.assertions(1);
     let actualContext;
     const expectedContext = {foo: 'bar'};
     const fn = function _fn() {
@@ -170,6 +179,7 @@ describe('#bind()', function() {
   });
 
   it('passes the correct arguments as a constructor', function() {
+    expect.assertions(1);
     const expected = {name: 'Correct'};
     const fn = function _fn(arg) {
       // eslint-disable-next-line no-invalid-this
@@ -184,6 +194,7 @@ describe('#bind()', function() {
   });
 
   it('returns the return value of the bound function when called as a constructor', function() {
+    expect.assertions(1);
     const oracle = [1, 2, 3];
     const fn = function _fn() {
       // eslint-disable-next-line no-invalid-this
@@ -198,6 +209,7 @@ describe('#bind()', function() {
   });
 
   it('returns the correct value if constructor returns primitive', function() {
+    expect.assertions(1);
     const fn = function _fn(oracle) {
       // eslint-disable-next-line no-invalid-this
       expect(this).not.toBe(oracle);
@@ -219,6 +231,7 @@ describe('#bind()', function() {
   });
 
   it('returns the value that instance of original "class" when called as a constructor', function() {
+    expect.assertions(1);
     const ClassA = function(x) {
       this.name = x || 'A';
     };
@@ -231,6 +244,7 @@ describe('#bind()', function() {
   });
 
   it('sets a correct length without thisArg', function() {
+    expect.assertions(1);
     const fn = function _fn(a, b, c) {
       return a + b + c;
     };
@@ -240,6 +254,7 @@ describe('#bind()', function() {
   });
 
   it('sets a correct length with thisArg', function() {
+    expect.assertions(1);
     const fn = function _fn(a, b, c) {
       // eslint-disable-next-line no-invalid-this
       return a + b + c + this.d;
@@ -250,6 +265,7 @@ describe('#bind()', function() {
   });
 
   it('sets a correct length with thisArg and first argument', function() {
+    expect.assertions(1);
     const fn = function _fn(a, b, c) {
       // eslint-disable-next-line no-invalid-this
       return a + b + c + this.d;
@@ -260,6 +276,7 @@ describe('#bind()', function() {
   });
 
   it('sets a correct length without thisArg and first argument', function() {
+    expect.assertions(1);
     const fn = function _fn(a, b, c) {
       return a + b + c;
     };
@@ -269,6 +286,7 @@ describe('#bind()', function() {
   });
 
   it('sets a correct length without thisArg and too many argument', function() {
+    expect.assertions(1);
     const fn = function _fn(a, b, c) {
       return a + b + c;
     };
