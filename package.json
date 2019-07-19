@@ -1,6 +1,6 @@
 {
   "name": "bind-x",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Creates a new function with a bound sequence of arguments.",
   "homepage": "https://github.com/Xotic750/bind-x",
   "author": {
@@ -49,9 +49,9 @@
     "url": "https://github.com/Xotic750/bind-x/issues"
   },
   "dependencies": {
-    "array-slice-x": "^4.0.13",
-    "assert-is-function-x": "^3.0.9",
-    "attempt-x": "^2.0.11",
+    "array-slice-x": "^4.0.14",
+    "assert-is-function-x": "^3.0.10",
+    "attempt-x": "^2.0.12",
     "is-primitive": "^3.0.1"
   },
   "devDependencies": {
