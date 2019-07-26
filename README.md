@@ -1,10 +1,12 @@
-<a href="https://travis-ci.org/Xotic750/bind-x"
+<a
+  href="https://travis-ci.org/Xotic750/bind-x"
   title="Travis status">
 <img
   src="https://travis-ci.org/Xotic750/bind-x.svg?branch=master"
   alt="Travis status" height="18">
 </a>
-<a href="https://david-dm.org/Xotic750/bind-x"
+<a
+  href="https://david-dm.org/Xotic750/bind-x"
   title="Dependency status">
 <img src="https://david-dm.org/Xotic750/bind-x/status.svg"
   alt="Dependency status" height="18"/>
@@ -15,15 +17,23 @@
 <img src="https://david-dm.org/Xotic750/bind-x/dev-status.svg"
   alt="devDependency status" height="18"/>
 </a>
-<a href="https://badge.fury.io/js/bind-x"
+<a
+  href="https://badge.fury.io/js/bind-x"
   title="npm version">
 <img src="https://badge.fury.io/js/bind-x.svg"
   alt="npm version" height="18">
 </a>
-<a href="https://www.jsdelivr.com/package/npm/bind-x"
+<a
+  href="https://www.jsdelivr.com/package/npm/bind-x"
   title="jsDelivr hits">
 <img src="https://data.jsdelivr.com/v1/package/npm/bind-x/badge?style=rounded"
   alt="jsDelivr hits" height="18">
+</a>
+<a
+  href="https://bettercodehub.com/results/Xotic750/bind-x"
+  title="bettercodehub score">
+<img src="https://bettercodehub.com/edge/badge/Xotic750/bind-x?branch=master"
+  alt="bettercodehub score" height="18">
 </a>
 
 <a name="module_bind-x"></a>
