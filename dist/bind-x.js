@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-26T14:47:20.339Z",
+  "date": "2019-07-27T09:05:36.699Z",
   "describe": "",
   "description": "Creates a new function with a bound sequence of arguments.",
   "file": "bind-x.js",
   "hash": "d2eaa5010fef5b828579",
   "license": "MIT",
-  "version": "4.0.11"
+  "version": "4.0.12"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
