@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-05T18:51:00.966Z",
+  "date": "2019-08-05T21:23:48.499Z",
   "describe": "",
   "description": "Creates a new function with a bound sequence of arguments.",
   "file": "bind-x.js",
-  "hash": "5c9e4d9948979d243ba4",
+  "hash": "cf6f4946ba25a849e62f",
   "license": "MIT",
-  "version": "4.0.14"
+  "version": "4.0.15"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1157,41 +1157,28 @@ var is_arguments = __webpack_require__(3);
 var is_arguments_default = /*#__PURE__*/__webpack_require__.n(is_arguments);
 
 // CONCATENATED MODULE: ./node_modules/is-array-x/dist/is-array-x.esm.js
-var is_array_x_esm_this = undefined;
-
-function is_array_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 
-
-var nativeIsArray = [].isArray;
-var isArrayNative = typeof nativeIsArray === 'function' && nativeIsArray;
-var testRes = isArrayNative && attempt_x_esm(function () {
-  is_array_x_esm_newArrowCheck(this, is_array_x_esm_this);
-
-  return isArrayNative([]) === true && isArrayNative({
+var nia = [].isArray;
+var nativeIsArray = typeof nia === 'function' && nia;
+var testResult = attempt_x_esm(function attemptee() {
+  return nativeIsArray([]) === true && nativeIsArray({
     length: 0
   }) === false;
-}.bind(undefined));
+});
+var isWorking = testResult.threw === false && testResult.value === true;
+var implementation = function isArray(value) {
+  return to_string_tag_x_esm(value) === '[object Array]';
+};
+/**
+ * Determines whether the passed value is an Array.
+ *
+ * @param {*} value - The value to test.
+ * @returns {boolean} - True if an array; otherwise false.
+ */
 
-var isArrayFn = function iife() {
-  if (testRes && testRes.threw === false && testRes.value === true) {
-    return isArrayNative;
-  }
-  /**
-   * The isArray() function determines whether the passed value is an Array.
-   *
-   * @function isArray
-   * @param {*} [value] - The object to be checked..
-   * @returns {boolean} `true` if the object is an Array; otherwise, `false`.
-   */
-
-
-  return function isArray(value) {
-    return to_string_tag_x_esm(value) === '[object Array]';
-  };
-}();
-
-/* harmony default export */ var is_array_x_esm = (isArrayFn);
+var is_array_x_esm_isArray = isWorking ? nativeIsArray : implementation;
+/* harmony default export */ var is_array_x_esm = (is_array_x_esm_isArray);
 
 
 // EXTERNAL MODULE: ./node_modules/is-date-object/index.js
@@ -1842,7 +1829,7 @@ var array_slice_x_esm_slice = function slice(array, start, end) {
 
 
 // CONCATENATED MODULE: ./dist/bind-x.esm.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return implementation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return bind_x_esm_implementation; });
 var bind_x_esm_this = undefined;
 
 function bind_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
@@ -1853,7 +1840,7 @@ function bind_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boun
 
 var nb = assert_is_function_x_esm.bind;
 var nativeBind = typeof nb === 'function' && nb;
-var isWorking;
+var bind_x_esm_isWorking;
 
 if (nativeBind) {
   /* eslint-disable-next-line no-void */
@@ -1874,25 +1861,25 @@ if (nativeBind) {
 
   var testThis = [];
   var bind_x_esm_res = attempt_x_esm.call(fn, nativeBind, testThis, 1);
-  isWorking = bind_x_esm_res.threw === false && typeof bind_x_esm_res.value === 'function';
+  bind_x_esm_isWorking = bind_x_esm_res.threw === false && typeof bind_x_esm_res.value === 'function';
 
-  if (isWorking) {
+  if (bind_x_esm_isWorking) {
     bind_x_esm_res = attempt_x_esm(bind_x_esm_res.value, 2, 3);
-    isWorking = bind_x_esm_res.threw === false && gra === 1 && context === testThis && bind_x_esm_res.value.length === 3;
+    bind_x_esm_isWorking = bind_x_esm_res.threw === false && gra === 1 && context === testThis && bind_x_esm_res.value.length === 3;
   }
 
-  if (isWorking) {
+  if (bind_x_esm_isWorking) {
     var oracle = [1, 2, 3];
 
     var Ctr = function Ctr() {
-      isWorking = this !== oracle;
+      bind_x_esm_isWorking = this !== oracle;
       return oracle;
     };
 
     bind_x_esm_res = attempt_x_esm.call(Ctr, nativeBind, null);
-    isWorking = bind_x_esm_res.threw === false && typeof bind_x_esm_res.value === 'function';
+    bind_x_esm_isWorking = bind_x_esm_res.threw === false && typeof bind_x_esm_res.value === 'function';
 
-    if (isWorking) {
+    if (bind_x_esm_isWorking) {
       bind_x_esm_res = attempt_x_esm(function () {
         bind_x_esm_newArrowCheck(this, bind_x_esm_this);
 
@@ -1900,8 +1887,8 @@ if (nativeBind) {
         return new bind_x_esm_res.value();
       }.bind(undefined));
 
-      if (isWorking) {
-        isWorking = bind_x_esm_res.threw === false && bind_x_esm_res.value === oracle;
+      if (bind_x_esm_isWorking) {
+        bind_x_esm_isWorking = bind_x_esm_res.threw === false && bind_x_esm_res.value === oracle;
       }
     }
   }
@@ -1931,7 +1918,7 @@ var bind_x_esm_concat = function concat(a, b) {
 
 var Empty = function Empty() {};
 
-var implementation = function bind(target, thisArg) {
+var bind_x_esm_implementation = function bind(target, thisArg) {
   assert_is_function_x_esm(target);
   /* eslint-disable-next-line prefer-rest-params */
 
@@ -1993,7 +1980,7 @@ var implementation = function bind(target, thisArg) {
  * @returns {Function} The bound function.
  */
 
-var $bind = isWorking ? patchedBind : implementation;
+var $bind = bind_x_esm_isWorking ? patchedBind : bind_x_esm_implementation;
 /* harmony default export */ var bind_x_esm = __webpack_exports__["default"] = ($bind);
 
 
