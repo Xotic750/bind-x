@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-04T20:45:00.279Z",
+  "date": "2019-08-05T18:51:00.966Z",
   "describe": "",
   "description": "Creates a new function with a bound sequence of arguments.",
   "file": "bind-x.js",
-  "hash": "cacda0e85916fc6773c9",
+  "hash": "5c9e4d9948979d243ba4",
   "license": "MIT",
   "version": "4.0.14"
 }
@@ -1842,6 +1842,7 @@ var array_slice_x_esm_slice = function slice(array, start, end) {
 
 
 // CONCATENATED MODULE: ./dist/bind-x.esm.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return implementation; });
 var bind_x_esm_this = undefined;
 
 function bind_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
@@ -1905,6 +1906,78 @@ if (nativeBind) {
     }
   }
 }
+/* eslint-disable-next-line no-unused-vars */
+
+
+var patchedBind = function bind(target, thisArg) {
+  /* eslint-disable-next-line prefer-rest-params */
+  return nativeBind.apply(assert_is_function_x_esm(target), array_slice_x_esm(arguments, 1));
+};
+
+var bind_x_esm_concat = function concat(a, b) {
+  var aLength = a.length;
+  var bLength = b.length;
+  var result = array_slice_x_esm(a);
+  result.length += bLength;
+
+  for (var index = 0; index < bLength; index += 1) {
+    result[aLength + index] = b[index];
+  }
+
+  return result;
+};
+/* eslint-disable-next-line lodash/prefer-noop */
+
+
+var Empty = function Empty() {};
+
+var implementation = function bind(target, thisArg) {
+  assert_is_function_x_esm(target);
+  /* eslint-disable-next-line prefer-rest-params */
+
+  var args = array_slice_x_esm(arguments, 2);
+  var bound;
+
+  var binder = function _binder() {
+    /* eslint-disable-next-line babel/no-invalid-this */
+    if (this instanceof bound) {
+      /* eslint-disable-next-line babel/no-invalid-this,prefer-rest-params */
+      var result = target.apply(this, bind_x_esm_concat(args, arguments));
+      /* eslint-disable-next-line babel/no-invalid-this */
+
+      return is_primitive_default()(result) ? this : result;
+    }
+    /* eslint-disable-next-line prefer-rest-params */
+
+
+    return target.apply(thisArg, bind_x_esm_concat(args, arguments));
+  };
+
+  var boundLength = target.length - args.length;
+
+  if (boundLength < 0) {
+    boundLength = 0;
+  }
+
+  var lastIndex = boundLength - 1;
+  var boundArgs = '';
+
+  for (var index = 0; index < boundLength; index += 1) {
+    boundArgs += "$_".concat(index, "_$").concat(index < lastIndex ? ',' : '');
+  }
+  /* eslint-disable-next-line no-new-func */
+
+
+  bound = Function('binder', 'slice', "return function (".concat(boundArgs, "){ return binder.apply(this,slice(arguments)); }"))(binder, array_slice_x_esm);
+
+  if (target.prototype) {
+    Empty.prototype = target.prototype;
+    bound.prototype = new Empty();
+    Empty.prototype = null;
+  }
+
+  return bound;
+};
 /**
  * The bind() method creates a new function that, when called, has its this
  * keyword set to the provided value, with a given sequence of arguments
@@ -1920,84 +1993,8 @@ if (nativeBind) {
  * @returns {Function} The bound function.
  */
 
-
-var $bind;
-
-if (isWorking) {
-  /* eslint-disable-next-line no-unused-vars */
-  $bind = function bind(target, thisArg) {
-    /* eslint-disable-next-line prefer-rest-params */
-    return nativeBind.apply(assert_is_function_x_esm(target), array_slice_x_esm(arguments, 1));
-  };
-} else {
-  var bind_x_esm_concat = function concat(a, b) {
-    var aLength = a.length;
-    var bLength = b.length;
-    var result = array_slice_x_esm(a);
-    result.length += bLength;
-
-    for (var index = 0; index < bLength; index += 1) {
-      result[aLength + index] = b[index];
-    }
-
-    return result;
-  };
-  /* eslint-disable-next-line lodash/prefer-noop */
-
-
-  var Empty = function Empty() {};
-
-  $bind = function bind(target, thisArg) {
-    assert_is_function_x_esm(target);
-    /* eslint-disable-next-line prefer-rest-params */
-
-    var args = array_slice_x_esm(arguments, 2);
-    var bound;
-
-    var binder = function _binder() {
-      /* eslint-disable-next-line babel/no-invalid-this */
-      if (this instanceof bound) {
-        /* eslint-disable-next-line babel/no-invalid-this,prefer-rest-params */
-        var result = target.apply(this, bind_x_esm_concat(args, arguments));
-        /* eslint-disable-next-line babel/no-invalid-this */
-
-        return is_primitive_default()(result) ? this : result;
-      }
-      /* eslint-disable-next-line prefer-rest-params */
-
-
-      return target.apply(thisArg, bind_x_esm_concat(args, arguments));
-    };
-
-    var boundLength = target.length - args.length;
-
-    if (boundLength < 0) {
-      boundLength = 0;
-    }
-
-    var lastIndex = boundLength - 1;
-    var boundArgs = '';
-
-    for (var index = 0; index < boundLength; index += 1) {
-      boundArgs += "$_".concat(index, "_$").concat(index < lastIndex ? ',' : '');
-    }
-    /* eslint-disable-next-line no-new-func */
-
-
-    bound = Function('binder', 'slice', "return function (".concat(boundArgs, "){ return binder.apply(this,slice(arguments)); }"))(binder, array_slice_x_esm);
-
-    if (target.prototype) {
-      Empty.prototype = target.prototype;
-      bound.prototype = new Empty();
-      Empty.prototype = null;
-    }
-
-    return bound;
-  };
-}
-
-var libBind = $bind;
-/* harmony default export */ var bind_x_esm = __webpack_exports__["default"] = (libBind);
+var $bind = isWorking ? patchedBind : implementation;
+/* harmony default export */ var bind_x_esm = __webpack_exports__["default"] = ($bind);
 
 
 
