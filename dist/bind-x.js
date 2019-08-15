@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-14T15:41:06.824Z",
+  "date": "2019-08-15T20:32:28.096Z",
   "describe": "",
   "description": "Creates a new function with a bound sequence of arguments.",
   "file": "bind-x.js",
-  "hash": "6f83881b799d55dff8fa",
+  "hash": "beecae4bda1965427102",
   "license": "MIT",
   "version": "4.1.0"
 }
@@ -1860,6 +1860,22 @@ var array_slice_x_esm_slice = function slice(array, start, end) {
 /* harmony default export */ var array_slice_x_esm = (array_slice_x_esm_slice);
 
 
+// CONCATENATED MODULE: ./node_modules/is-primitive-x/dist/is-primitive-x.esm.js
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * Returns true if the value is a primitive.
+ *
+ * @param {*} [val] - The value to test.
+ * @returns {boolean} True if a primitive, otherwise false..
+ */
+var isPrimitive = function isPrimitive(val) {
+  return _typeof(val) === 'object' ? val === null : typeof val !== 'function';
+};
+
+/* harmony default export */ var is_primitive_x_esm = (isPrimitive);
+
+
 // CONCATENATED MODULE: ./dist/bind-x.esm.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "implementation", function() { return bind_x_esm_implementation; });
 var bind_x_esm_this = undefined;
@@ -1964,7 +1980,7 @@ var bind_x_esm_implementation = function bind(target, thisArg) {
       var result = target.apply(this, bind_x_esm_concat(args, arguments));
       /* eslint-disable-next-line babel/no-invalid-this */
 
-      return is_primitive_default()(result) ? this : result;
+      return is_primitive_x_esm(result) ? this : result;
     }
     /* eslint-disable-next-line prefer-rest-params */
 

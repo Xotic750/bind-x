@@ -5,7 +5,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 import assertIsFunction from 'assert-is-function-x';
 import slice from 'array-slice-x';
 import attempt from 'attempt-x';
-import isPrimitive from 'is-primitive';
+import isPrimitive from 'is-primitive-x';
 var nb = assertIsFunction.bind;
 var nativeBind = typeof nb === 'function' && nb;
 var isWorking;

@@ -1,7 +1,7 @@
 import assertIsFunction from 'assert-is-function-x';
 import slice from 'array-slice-x';
 import attempt from 'attempt-x';
-import isPrimitive from 'is-primitive';
+import isPrimitive from 'is-primitive-x';
 
 const nb = assertIsFunction.bind;
 const nativeBind = typeof nb === 'function' && nb;
