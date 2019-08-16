@@ -66,7 +66,7 @@ preceding any provided when the new function is called.
 | ------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | target  | <code>function</code> | The target function.                                                                                                                                                                     |
 | thisArg | <code>\*</code>       | The value to be passed as the this parameter to the target function when the bound function is called. The value is ignored if the bound function is constructed using the new operator. |
-| [args]  | <code>\*</code>       | Arguments to prepend to arguments provided to the bouund function when invoking the target function.                                                                                     |
+| [args]  | <code>...\*</code>    | Arguments to prepend to arguments provided to the bound function when invoking the target function.                                                                                      |
 
 **Example**
 

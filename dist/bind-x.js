@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-15T20:32:28.096Z",
+  "date": "2019-08-16T23:28:51.554Z",
   "describe": "",
   "description": "Creates a new function with a bound sequence of arguments.",
   "file": "bind-x.js",
-  "hash": "beecae4bda1965427102",
+  "hash": "937c69572d22c458eca7",
   "license": "MIT",
   "version": "4.1.0"
 }
@@ -2022,7 +2022,7 @@ var bind_x_esm_implementation = function bind(target, thisArg) {
  * @param {*} thisArg - The value to be passed as the this parameter to the target
  *  function when the bound function is called. The value is ignored if the
  *  bound function is constructed using the new operator.
- * @param {*} [args] - Arguments to prepend to arguments provided to the bouund
+ * @param {*} [args] - Arguments to prepend to arguments provided to the bound
  *  function when invoking the target function.
  * @throws {TypeError} If target is not a function.
  * @returns {Function} The bound function.

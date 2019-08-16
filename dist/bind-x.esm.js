@@ -142,7 +142,7 @@ export var implementation = function bind(target, thisArg) {
  * @param {*} thisArg - The value to be passed as the this parameter to the target
  *  function when the bound function is called. The value is ignored if the
  *  bound function is constructed using the new operator.
- * @param {*} [args] - Arguments to prepend to arguments provided to the bouund
+ * @param {*} [args] - Arguments to prepend to arguments provided to the bound
  *  function when invoking the target function.
  * @throws {TypeError} If target is not a function.
  * @returns {Function} The bound function.

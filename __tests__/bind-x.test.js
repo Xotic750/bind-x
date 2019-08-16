@@ -270,5 +270,66 @@ import $bind, {implementation} from '../src/bind-x';
       const Subject = bind(fn, undefined, 1, 2, 3, 4);
       expect(Subject).toHaveLength(0);
     });
+
+    it('sets a correct length upto 8 arguments', function() {
+      expect.assertions(10);
+
+      const fn0 = bind(function _fn() {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn1 = bind(function _fn(a) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn2 = bind(function _fn(a, b) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn3 = bind(function _fn(a, b, c) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn4 = bind(function _fn(a, b, c, d) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn5 = bind(function _fn(a, b, c, d, e) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn6 = bind(function _fn(a, b, c, d, e, f) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn7 = bind(function _fn(a, b, c, d, e, f, g) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn8 = bind(function _fn(a, b, c, d, e, f, g, h) {});
+
+      /* eslint-disable-next-line no-unused-vars */
+      const fn9 = bind(function _fn(a, b, c, d, e, f, g, h, i) {});
+
+      expect(fn0).toHaveLength(0);
+      fn0();
+      expect(fn1).toHaveLength(1);
+      fn1();
+      expect(fn2).toHaveLength(2);
+      fn2();
+      expect(fn3).toHaveLength(3);
+      fn3();
+      expect(fn4).toHaveLength(4);
+      fn4();
+      expect(fn5).toHaveLength(5);
+      fn5();
+      expect(fn6).toHaveLength(6);
+      fn6();
+      expect(fn7).toHaveLength(7);
+      fn7();
+      expect(fn8).toHaveLength(8);
+      fn8();
+      expect(fn9).toHaveLength(9);
+      fn9();
+    });
+
+    it('throws if not a function', function() {
+      expect.assertions(1);
+      expect(() => {
+        bind({}, undefined, 1, 2, 3, 4);
+      }).toThrowErrorMatchingSnapshot();
+    });
   });
 });
