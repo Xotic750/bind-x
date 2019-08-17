@@ -53,7 +53,7 @@
   "dependencies": {
     "array-slice-x": "^4.2.0",
     "assert-is-function-x": "^3.1.0",
-    "attempt-x": "^2.1.0",
+    "has-working-bind-x": "^1.0.0",
     "is-primitive-x": "^1.0.0"
   },
   "devDependencies": {
