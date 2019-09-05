@@ -2,7 +2,7 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-09-04T23:58:36.589Z",
+  "date": "2019-09-05T20:09:15.207Z",
   "describe": "",
   "description": "Creates a new function with a bound sequence of arguments.",
   "file": "bind-x.js",
