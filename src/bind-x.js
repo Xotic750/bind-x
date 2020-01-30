@@ -45,10 +45,11 @@ const getBoundArgs = function getBoundArgs(target, args) {
 
 const getBound = function getBound(boundArgs, binder) {
   /* eslint-disable-next-line no-new-func */
-  return Function('binder', 'slice', `return function (${boundArgs}){ return binder.apply(this,slice(arguments)); }`)(
-    binder,
-    slice,
-  );
+  return Function(
+    'binder',
+    'slice',
+    `return function (${boundArgs}){ return binder.apply(this,slice(arguments)); }`,
+  )(binder, slice);
 };
 
 const setProto = function setProto(target, bound) {
